@@ -1,0 +1,13 @@
+[project]
+name = "shopsphere-auth"
+version = "0.1.0"
+description = "Authentication service for ShopSphere"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "celery",
+    "redis",
+    "sqlalchemy",
+    "asyncpg",
+]
