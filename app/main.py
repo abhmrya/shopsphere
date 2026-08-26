@@ -1,0 +1,17 @@
+from fastapi import FastAPI
+
+from app.core.config import settings
+from app.api.v1.router import router as v1_router
+
+
+app = FastAPI(
+    title=settings.app_name,
+    version="1.0.0",
+    description="Production-style e-commerce backend",
+)
+
+
+app.include_router(
+    v1_router,
+    prefix="/api/v1",
+)
