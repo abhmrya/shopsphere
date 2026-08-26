@@ -1,20 +1,7 @@
 from fastapi import APIRouter
-from app.core.config import settings
+
+from app.api.v1.health  import router as  health_router
 
 router = APIRouter()
 
-
-@router.get("/health")
-def health_check():
-    return {
-        "status": "ok"
-    }
-
-
-@router.get("/version")
-def version_check():
-    return {
-        "version": settings.app_version,
-        "service": settings.app_name,
-        "environment": settings.app_env
-    }
+router.include_router(health_router)

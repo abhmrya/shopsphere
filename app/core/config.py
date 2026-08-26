@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     app_env: str
     debug: bool = False
     app_version: str
+    database_url: str
 
     class Config:
         env_file = ".env"
