@@ -1,0 +1,38 @@
+services:
+
+  auth-services:
+    build:
+      context: .
+      dockerfile: auth/Dockerfile
+
+    container_name: shopsphere-auth
+
+    env_file:
+      - .env
+
+    ports:
+      - "8001:8000"
+
+    depends_on:
+      - auth-db
+
+
+  auth-db:
+    image: postgres:17-alpine
+
+    container_name: shopsphere-auth-db
+
+    environment:
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+      POSTGRES_DB: ${AUTH_DB_NAME}
+
+    ports:
+      - "${AUTH_DB_PORT}:5432"
+
+    volumes:
+      - auth_postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  auth_postgres_data:

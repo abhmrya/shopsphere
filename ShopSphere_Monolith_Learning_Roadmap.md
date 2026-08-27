@@ -141,3 +141,30 @@
 - Har phase se pehle uska "Problem" padho, phir solution seekho.
 - Naya concept aaye to khud chhota experiment likh kar test karo (e.g. do parallel requests bhej kar race condition reproduce karo).
 - Phase 22 (Docker) tak agar Docker environment available nahi hai to sirf code/architecture develop karo, baad mein containerize kar lena.
+
+Service:
+auth-service
+
+Container:
+shopsphere-auth
+
+Database container:
+shopsphere-auth-db
+
+Database:
+shopsphere_auth
+
+Volume:
+auth_postgres_data
+
+Application port:
+8001
+
+Container port:
+8000
+
+PostgreSQL host port:
+5434
+
+PostgreSQL container port:
+5432

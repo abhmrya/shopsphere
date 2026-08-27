@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
-from app.core.security import hash_password
-from app.models.user import User
-from app.repositories.user_repository import UserRepository
+from ..core.security import hash_password
+from ..models.user import User
+from ..repositories.user_repository import UserRepository
 
 
 class UserService:
@@ -14,7 +14,9 @@ class UserService:
     def get_user_by_email(self,email: str) -> User | None:
         return self.repository.get_by_email(self.db,email,)
 
-    def create_user(self,email: str,password: str,) -> User:
+    def create_user(self,email: str,password: str,
+        first_name:  str,last_name: str,
+        phone_number: str) -> User:
 
         existing_user  = self.repository.get_by_email(self.db,email)
 
@@ -23,6 +25,11 @@ class UserService:
 
         hashed_password = hash_password(password)
 
-        user = User(email=email,password=hashed_password,)
+        user = User(email=email,
+                    password=hashed_password,
+                    first_name=first_name,
+                    last_name=last_name,
+                    phone_number=phone_number,
+                    )
 
         return self.repository.create(self.db,user)
