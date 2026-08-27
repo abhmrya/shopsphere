@@ -1,0 +1,1 @@
+docker exec postgres psql -U shopsphere_auth_user -d shopsphere_auth -c "COPY users TO STDOUT WITH CSV HEADER" > users.csv
