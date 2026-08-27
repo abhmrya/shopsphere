@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from ...core.dependencies import get_db
 from ...schemas.user import UserCreate, UserResponse
 from ...services.user_service import UserService
+from ...tasks import send_welcome_email_task
 
 router = APIRouter(
     prefix="/auth",
@@ -21,6 +22,12 @@ def register(data:UserCreate,db: Session = Depends(get_db)):
             first_name=data.first_name,
             last_name=data.last_name,
             phone_number=data.phone_number,
+        )
+
+        # Send email asynchronously
+        send_welcome_email_task.delay(
+            user.email,
+            user.first_name,
         )
 
         return user
