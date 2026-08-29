@@ -75,7 +75,7 @@ services:
       - redis
       - auth-db
 
-    command: celery -A app.celery_app:celery_app worker --loglevel=info
+    command: uv run celery -A app.celery_app:celery_app worker --loglevel=info
 
 
 volumes:

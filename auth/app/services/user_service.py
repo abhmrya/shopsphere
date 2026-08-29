@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from ..core.security import hash_password
+from ..core.security import hash_password,verify_password
 from ..models.user import User
 from ..repositories.user_repository import UserRepository
 
@@ -33,3 +33,20 @@ class UserService:
                     )
 
         return self.repository.create(self.db,user)
+
+    def authenticate_user(self,email: str,password: str,) -> User:
+
+        user = self.repository.get_by_email(self.db,email,)
+
+        if not user:
+            raise ValueError(
+                "Invalid email or password"
+            )
+
+        if not verify_password(password,user.password,):
+
+            raise ValueError(
+                "Invalid email or password"
+            )
+
+        return user
